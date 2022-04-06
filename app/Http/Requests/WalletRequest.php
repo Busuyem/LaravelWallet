@@ -27,7 +27,9 @@ class WalletRequest extends FormRequest
             'user_id' => 'required',
             'type' => 'required',
             'name' => 'required',
-            'monthly_interest' => 'required'
+            'monthly_interest' => 'required|digits_between:3, 15',
+            'minimum_balance' => 'required|digits_between:3,15',
+            'balance' => 'required|digits_between:3,15'
         ];
     }
 }

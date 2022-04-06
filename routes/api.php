@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('users')->group(function(){
     Route::get('/', [UserController::class, 'allUsers']);
     Route::post('/', [UserController::class, 'createUser']);
+    Route::get('/{user}', [UserController::class, 'getUserDetails']);
 
 });
 

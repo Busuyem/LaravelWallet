@@ -17,8 +17,9 @@ class CreateWalletsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->decimal('minimum_balance', 10, 2);
-            $table->string('monthly_interest');
+            $table->string('type');
+            $table->decimal('minimum_balance', 15, 2)->default(1000);
+            $table->decimal('monthly_interest', 15, 2);
             $table->decimal('balance', 15, 2);
             $table->timestamps();
         });
