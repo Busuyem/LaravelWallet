@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('type');
             $table->decimal('amount', 13, 2);
             $table->string('purpose');
-            $table->boolean('status')->default('failed');
+            $table->string('status')->default('failed');
             $table->timestamps();
         });
     }
