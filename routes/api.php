@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use App\Models\Wallet;
@@ -31,4 +32,11 @@ Route::prefix('users')->group(function(){
 Route::prefix('wallets')->group(function(){
     Route::get('/', [WalletController::class, 'allWallet']);
     Route::post('/', [WalletController::class, 'createWallet']);
+    Route::get('/{wallet}', [WalletController::class, 'getWalletDetails']);
+});
+
+Route::prefix('transactions')->group(function(){
+    Route::get('/', [TransactionController::class, 'allTransactions']);
+    Route::post('/', [TransactionController::class, 'makeTransaction']);
+    Route::get('/{transaction}', [TransactionController::class, 'getTransactionDetails']);
 });

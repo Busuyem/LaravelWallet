@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionRequest;
 use Throwable;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class WalletController extends Controller
     public function allWallet()
     {
         try{
-            $allWallets = Wallet::all();
+            $allWallets = Wallet::with('transactions')->get();
             return response()->json([
                 'status_code' => 200,
                 'message'=> 'Success',
@@ -46,4 +47,24 @@ class WalletController extends Controller
             ]);
         }
     }
+
+    public function getWalletDetails($wallet)
+    {
+        try{
+            $walletDetails = Wallet::findOrFail($wallet);
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Success!',
+                'data' => new WalletResource($walletDetails),
+                'transactions' => []
+            ]);
+
+        }catch(Throwable $e){
+            return response()->json([
+                'message'=>404,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
 }

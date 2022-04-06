@@ -16,8 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('wallet_id');
+            $table->unsignedBigInteger('receiver_id');
             $table->string('type');
-            $table->decimal('amount', 13, 2);
+            $table->decimal('amount', 15, 2);
             $table->string('purpose');
             $table->string('status')->default('failed');
             $table->timestamps();

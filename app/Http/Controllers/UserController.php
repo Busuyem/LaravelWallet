@@ -16,7 +16,7 @@ class UserController extends Controller
     public function allUsers()
     {
         try{
-            $allUsers = User::all();
+            $allUsers = User::with('wallets')->get();
 
             return response()->json([
                 'status_code' => 200,
@@ -57,7 +57,6 @@ class UserController extends Controller
     {
         try{
             $findUserDetails = User::findOrFail($user);
-
             return response()->json([
                 'status'=>200,
                 'message'=> 'Success!',
