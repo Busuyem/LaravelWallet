@@ -6,6 +6,7 @@ This documentation refers to how to test the api
     c. open project directory and run cp .env.example .env
     d. run php artisan key:gen
     e. update .env with your database credentials
+    f. run php artisan migrate
     g. run php artisan serve
 
 2) Follow these steps to test the api users endpoints
@@ -39,7 +40,14 @@ This documentation refers to how to test the api
     Note: The user's wallet id is the unique identifier as against the normal wallet account no in the real scenario
 
 
-    4)
+    4) Importing data from the Excel File
+
+        a.  http://127.0.0.1:8000/api/import - Endpoint to import the file (POST REQUEST)
+
+        Data from request
+        -file
+
+    Summary: kindly follow this documentation so as to properly use the apis.
 
 
 
