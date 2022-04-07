@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class WalletResource extends JsonResource
+class WalletDetailsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,6 +23,7 @@ class WalletResource extends JsonResource
             'minimum_balance' => $this->minimum_balance,
             'balance' => $this->balance,
             'status' =>$this->status,
+            'transactions' => TransactionResource::collection($this->transactions)
         ];
     }
 }

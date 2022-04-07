@@ -18,7 +18,7 @@ class TransactionController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Success',
-                'data' => new TransactionResource($transactions)
+                'data' => TransactionResource::collection($transactions)
             ]);
         }catch(Throwable $e){
             return response()->json([
@@ -37,7 +37,7 @@ class TransactionController extends Controller
             $sendingWalletBallance = $sendingWalletId->balance;
             $sendingMinimumBalance = $sendingWalletId->minimum_blance;
 
-            if($sendingWalletBallance <= $sendingMinimumBalance){
+            if($sendingWalletBallance < request()->amount){
                 return response()->json([
                     'message' => 'Ooops! You do not have enough money in your account. Kindly fund your account.'
                 ]);
@@ -47,12 +47,13 @@ class TransactionController extends Controller
                 $receivingWalletBalance = $receivingWalletId->balance;
                 $receivingWalletNewBalance = $receivingWalletId->increment('balance', request()->amount);
                 //$receivingWalletNewBalance->update;
+                $validateTransactionData['status'] = true;
                 $transactions = Transaction::create($validateTransactionData);
 
                 return response()->json([
                     'status_code' => 200,
                     'message' => 'Transfer successful!',
-
+                    'data' => new TransactionResource($transactions)
                 ]);
             }
 
@@ -60,6 +61,23 @@ class TransactionController extends Controller
             return response()->json([
                 'status_code' => 500,
                 'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function getTransactionDetails($transaction)
+    {
+        try{
+            $transactionDetail = Transaction::findOrFail($transaction);
+            return response()->json([
+                'status_code' => 200,
+                'message' => 'Success!',
+                'data' => new TransactionResource($transactionDetail)
+            ]);
+        }catch(Throwable $e){
+            return response()->json([
+                'status_code' => 404,
+                'message' => 'The record does not exist.'
             ]);
         }
     }

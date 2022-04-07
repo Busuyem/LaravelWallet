@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\WalletResource;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -62,7 +63,7 @@ class UserController extends Controller
                 'message'=> 'Success!',
                 'data' => new UserResource($findUserDetails),
                 'wallet'=> WalletResource::collection($findUserDetails->wallets),
-                'transactions' => []
+                // 'transactions' => []
             ]);
 
         }catch(Throwable $e){
@@ -71,5 +72,24 @@ class UserController extends Controller
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    public function dataCount()
+    {
+        $totalUsers = count(User::all());
+        $totalWallets = count(Wallet::all());
+        $totalTransactions = count(Transaction::all());
+        $totalMinimumBalance = array_sum(Wallet::all()->pluck('minimum_balance')->toArray());
+        $totalBalance = array_sum(Wallet::all()->pluck('balance')->toArray());
+        $totalWalletBalance = $totalMinimumBalance + $totalBalance;
+
+        return response()->json([
+            'status_code'=> 200,
+            'message' => 'Success!',
+            'totalUsers' => $totalUsers,
+            'totalWallets' => $totalWallets,
+            'totalTransactions' => $totalTransactions,
+            'totalWalletsBalance' => $totalWalletBalance
+        ]);
     }
 }

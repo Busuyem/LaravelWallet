@@ -7,6 +7,7 @@ use Throwable;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Requests\WalletRequest;
+use App\Http\Resources\TransactionResource;
 use App\Http\Resources\WalletResource;
 
 class WalletController extends Controller
@@ -55,8 +56,9 @@ class WalletController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Success!',
+                'owner' => $walletDetails->user->first_name,
                 'data' => new WalletResource($walletDetails),
-                'transactions' => []
+                'transactions' => TransactionResource::collection($walletDetails->transactions)
             ]);
 
         }catch(Throwable $e){

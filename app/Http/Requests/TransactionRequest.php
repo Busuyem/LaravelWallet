@@ -25,6 +25,7 @@ class TransactionRequest extends FormRequest
     {
         return [
             'wallet_id' => 'required|numeric',
+            'receiver_id' => 'required|numeric',
             'type' => 'required|max:30',
             'amount' => 'required|numeric|digits_between:1,15',
             'purpose' => 'required|max:256'
