@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\WalletController;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\WalletController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,4 +40,9 @@ Route::prefix('transactions')->group(function(){
     Route::get('/', [TransactionController::class, 'allTransactions']);
     Route::post('/', [TransactionController::class, 'makeTransaction']);
     Route::get('/{transaction}', [TransactionController::class, 'getTransactionDetails']);
+});
+
+Route::prefix('import')->group(function(){
+    //Route::get('/', [TransactionController::class, 'allTransactions']);
+    Route::post('/', [ImportController::class, 'importData']);
 });

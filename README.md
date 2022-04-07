@@ -36,5 +36,10 @@ This documentation refers to how to test the api
     d. http://127.0.0.1:8000/api/users/counts - Get users count, count of wallets, total wallet balance, total transaction volume (GET REQUEST)
 
     e. http://127.0.0.1:8000/api/transactions - send money from one wallet to the other (POST REQUEST)
+    Note: The user's wallet id is the unique identifier as against the normal wallet account no in the real scenario
+
+
+    4)
+
 
 
